@@ -19,7 +19,12 @@ jobs:
 
     - uses: 1arp/create-a-file-action@0.4.5
       with:
-        file: 'agent_load.sh'
+        file: '/c/Users/runneradmin/.ssh/agent.env'
+        content: empty file
+
+    - uses: 1arp/create-a-file-action@0.4.5
+      with:
+        file: 'ssh_agent_load.sh'
         content: |
           env=~/.ssh/agent.env
           agent_load_env () { test -f "$env" && . "$env" | /dev/null ; }
@@ -41,4 +46,4 @@ jobs:
 
     - name:  "shell: C:\\Program Files\\Git\\usr\\bin\\bash.exe"
       shell: bash
-      run: sh agent_load.sh
+      run: sh ssh_agent_load.sh
