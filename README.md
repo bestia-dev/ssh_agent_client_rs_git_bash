@@ -40,7 +40,7 @@ The original dependency is re-exported.
 Instead of adding dependency to `ssh-agent-client-rs`, add `ssh_agent_client_rs_git_bash`.  
 Instead of `ssh_agent_client_rs::Client::connect()`, use the universal method of the new trait:
 
-```rust no_run
+```no_run
 // Cargo.toml/[dependencies]
 // ssh_agent_client_rs_git_bash = {git="https://github.com/bestia-dev/ssh_agent_client_rs_git_bash.git"}
 
