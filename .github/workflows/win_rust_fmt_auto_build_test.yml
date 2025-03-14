@@ -50,7 +50,13 @@ jobs:
     - name: cargo auto build
       run: cargo auto build
 
-    - uses: tanmancan/action-setup-ssh-agent-key@1.0.0
+    - name: install Git for Windows
+      run: choco install git.install
+
+    - name:  "shell: C:\\Program Files\\Git\\usr\\bin\\bash.exe"
+      shell: bash
+      run:   |
+        eval $(ssh-agent)
 
     - name: cargo test
       run: cargo test
