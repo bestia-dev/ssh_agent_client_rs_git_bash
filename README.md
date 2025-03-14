@@ -34,7 +34,7 @@ My projects on GitHub are more like a tutorial than a finished product: [bestia-
 
 ## Description
 
-This is an extension for the crate [ssh-agent-client-rs](https://github.com/nresare/ssh-agent-client-rs).  
+This is an extension for the crate [nresare/ssh-agent-client-rs](https://github.com/nresare/ssh-agent-client-rs).  
 It adds the implementation for windows git-bash.  
 The original dependency is re-exported.  
 Instead of adding dependency to `ssh-agent-client-rs`, add `ssh_agent_client_rs_git_bash`.  
