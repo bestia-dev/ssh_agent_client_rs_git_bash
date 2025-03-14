@@ -312,13 +312,14 @@
 <a href="#311" id="311">311</a>
 <a href="#312" id="312">312</a>
 <a href="#313" id="313">313</a>
-<a href="#314" id="314">314</a></pre></div><pre class="rust"><code><span class="comment">// ssh_agent_client_rs_git_bash/src/lib.rs
+<a href="#314" id="314">314</a>
+<a href="#315" id="315">315</a></pre></div><pre class="rust"><code><span class="comment">// ssh_agent_client_rs_git_bash/src/lib.rs
 
 // region: auto_md_to_doc_comments include README.md A //!
 </span><span class="doccomment">//! # ssh_agent_client_rs_git_bash
 //!
 //! **Add git-bash ssh-agent implementation for ssh-agent-client-rs**  
-//! ***version: 0.0.7 date: 2025-03-14 author: [Bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash)***
+//! ***version: 0.0.8 date: 2025-03-14 author: [Bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash)***
 //!
 //!  ![maintained](https://img.shields.io/badge/maintained-green)
 //!  ![ready-for-use](https://img.shields.io/badge/ready_for_use-green)
@@ -330,7 +331,7 @@
 //!  ![Rust](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/workflows/rust_fmt_auto_build_test/badge.svg)
 //!  ![ssh_agent_client_rs_git_bash](https://bestia.dev/webpage_hit_counter/get_svg_image/928692335.svg)
 //!
-//! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-163-green.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
+//! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-164-green.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 //! [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-113-blue.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 //! [![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-14-purple.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 //! [![Lines in examples](https://img.shields.io/badge/Lines_in_examples-0-yellow.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
@@ -386,9 +387,9 @@
 </span><span class="comment">// endregion: auto_md_to_doc_comments include README.md A //!
 
 </span><span class="kw">mod </span>error;
-<span class="kw">use </span>error::{Error, <span class="prelude-ty">Result</span>};
-
-<span class="kw">use </span>std::io::{Read, Write};
+<span class="attr">#[cfg(target_family = <span class="string">"windows"</span>)]
+</span><span class="kw">use </span>error::Error;
+<span class="kw">use </span>error::Result;
 
 <span class="doccomment">/// Re-export ssh-agent-client-rs Client.
 </span><span class="kw">pub use </span>ssh_agent_client_rs::Client;
@@ -446,6 +447,7 @@
     key_guid: <span class="kw-2">&amp;</span>str,
     tcp_stream: <span class="kw-2">&amp;mut </span>std::net::TcpStream,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+    <span class="kw">use </span>std::io::{Read, Write};
     <span class="kw">let </span>b1 = parse_guid_and_change_byte_order(key_guid)<span class="question-mark">?</span>;
     <span class="kw">let </span>_amount = tcp_stream.write(<span class="kw-2">&amp;</span>b1)<span class="question-mark">?</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>b2: [u8; <span class="number">16</span>] = [<span class="number">0</span>; <span class="number">16</span>];
