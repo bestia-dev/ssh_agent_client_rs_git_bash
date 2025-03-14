@@ -1,0 +1,13 @@
+[package]
+name = "ssh_agent_client_rs_git_bash"
+version = "0.0.1"
+license = "MIT"
+repository = "https://github.com/automation-tasks-rs/ssh_agent_client_rs_git_bash"
+description = "Add git-bash ssh-agent implementation for ssh-agent-client-rs"
+edition = "2021"
+
+[dependencies]
+ssh-agent-client-rs={git="https://github.com/nresare/ssh-agent-client-rs", branch="main"}
+thiserror = "2.0.12"
+anyhow="1.0.97"
+ssh-key="0.6.7"
