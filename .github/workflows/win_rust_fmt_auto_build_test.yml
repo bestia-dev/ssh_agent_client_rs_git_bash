@@ -24,12 +24,6 @@ jobs:
     - name: Run cache for rust dependencies
       uses: Swatinem/rust-cache@v2.7.7
 
-    - name: Configure sccache
-      run: printf "RUSTC_WRAPPER=sccache\n" >> $GITHUB_ENV; printf "SCCACHE_GHA_ENABLED=true\n" >> $GITHUB_ENV
-
-    - name: Run sccache-cache for artifacts
-      uses: mozilla-actions/sccache-action@v0.0.8
-
     - name: cargo clippy --no-deps
       run: cargo clippy --no-deps
 
@@ -38,22 +32,14 @@ jobs:
       with:
         crate: cargo-auto
 
-    - name: Cache for automation tasks
-      uses: actions/cache@v4.2.2
-      with:
-        path: |
-          /home/runner/work/cargo-auto/cargo-auto/automation_tasks_rs/.file_hashes.json 
-          /home/runner/work/cargo-auto/cargo-auto/automation_tasks_rs/target 
-          /home/runner/work/cargo-auto/cargo-auto/automation_tasks_rs/Cargo.toml
-        key: automation_tasks_rs
-
     - name: cargo auto build
       run: cargo auto build
 
     - name: install Git for Windows
       run: choco install git.install
 
-    # every action step opens a new shell and looses the env var of the previous step
+    # every 'action step' opens a new shell and looses the env var of the previous step
+    # for 'cargo test' I need the ssh-agent and the env var SSH_AUTH_SOCK
     - name:  "start ssh-agent"
       shell: bash
       run: |
