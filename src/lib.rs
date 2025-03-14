@@ -33,7 +33,7 @@
 //! Instead of adding dependency to `ssh-agent-client-rs`, add `ssh_agent_client_rs_git_bash`.  
 //! Instead of `ssh_agent_client_rs::Client::connect()`, use the universal method of the new trait:
 //!
-//! ```rust ignore
+//! ```rust no_run
 //! // Cargo.toml/[dependencies]
 //! // ssh_agent_client_rs_git_bash = {git="https://github.com/bestia-dev/ssh_agent_client_rs_git_bash.git"}
 //!
@@ -42,7 +42,6 @@
 //! let mut client = ssh_agent_client_rs_git_bash::Client::connect_to_git_bash_or_linux(&path_ssh_auth_sock)
 //!     .expect("Cannot connect to ssh-agent.");
 //! ```
-//!
 //!
 //! ## Windows git-bash
 //!
