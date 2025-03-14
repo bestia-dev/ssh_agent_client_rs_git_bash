@@ -4,7 +4,7 @@
 //! # ssh_agent_client_rs_git_bash
 //!
 //! **Add git-bash ssh-agent implementation for ssh-agent-client-rs**  
-//! ***version: 0.0.3 date: 2025-03-14 author: [Bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash)***
+//! ***version: 0.0.7 date: 2025-03-14 author: [Bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash)***
 //!
 //!  ![maintained](https://img.shields.io/badge/maintained-green)
 //!  ![ready-for-use](https://img.shields.io/badge/ready_for_use-green)
@@ -16,11 +16,11 @@
 //!  ![Rust](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/workflows/rust_fmt_auto_build_test/badge.svg)
 //!  ![ssh_agent_client_rs_git_bash](https://bestia.dev/webpage_hit_counter/get_svg_image/928692335.svg)
 //!
-//! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-153-green.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
-//! [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-114-blue.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
+//! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-163-green.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
+//! [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-113-blue.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 //! [![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-14-purple.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 //! [![Lines in examples](https://img.shields.io/badge/Lines_in_examples-0-yellow.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
-//! [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-125-orange.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
+//! [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-129-orange.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 //!
 //! Hashtags: #maintained #ready-for-use #rustlang  
 //! My projects on GitHub are more like a tutorial than a finished product: [bestia-dev tutorials](https://github.com/bestia-dev/tutorials_rust_wasm).  
@@ -33,7 +33,7 @@
 //! Instead of adding dependency to `ssh-agent-client-rs`, add `ssh_agent_client_rs_git_bash`.  
 //! Instead of `ssh_agent_client_rs::Client::connect()`, use the universal method of the new trait:
 //!
-//! ```rust no_run
+//! ```ignore
 //! // Cargo.toml/[dependencies]
 //! // ssh_agent_client_rs_git_bash = {git="https://github.com/bestia-dev/ssh_agent_client_rs_git_bash.git"}
 //!
@@ -109,7 +109,7 @@ impl GitBash for Client {
     /// Conditional compiling depends on the target family.
     #[cfg(target_family = "unix")]
     fn connect_to_git_bash_or_linux(path: &std::path::Path) -> Result<Client> {
-        ssh_agent_client_rs_git_bash::Client::connect(&path)
+        Ok(Client::connect(path)?)
     }
 }
 
@@ -119,6 +119,7 @@ impl GitBash for Client {
 /// In 'windows git-bash' the fake unix domain socket path is just a normal file
 /// that contains some data for the tcp connection.
 /// example: `!<socket >49722 s 09B97624-72E2CDC5-38596B86-E9F0B690\0`
+#[cfg(target_family = "windows")]
 fn read_and_parse_fake_socket_file(path: &std::path::Path) -> Result<(String, String)> {
     let conn_string = std::fs::read_to_string(path)?;
     let (tcp_address, key_guid) = parse_fake_socket_metadata(&conn_string)?;
@@ -126,6 +127,7 @@ fn read_and_parse_fake_socket_file(path: &std::path::Path) -> Result<(String, St
 }
 
 /// Secret handshake only for ssh-agent in git-bash.
+#[cfg(target_family = "windows")]
 fn do_secret_handshake_with_remote_end(
     key_guid: &str,
     tcp_stream: &mut std::net::TcpStream,
@@ -145,6 +147,7 @@ fn do_secret_handshake_with_remote_end(
 /// Parse fake socket metadata.
 ///
 /// example: `!<socket >49722 s 09B97624-72E2CDC5-38596B86-E9F0B690\0`
+#[cfg(target_family = "windows")]
 fn parse_fake_socket_metadata(conn_string: &str) -> Result<(String, String)> {
     let conn_string = conn_string
         .trim_start_matches("!<socket >")
@@ -173,6 +176,7 @@ fn parse_fake_socket_metadata(conn_string: &str) -> Result<(String, String)> {
 /// The handshake needs these 3 values: pid uid gid.
 ///
 /// The bytes order are reversed.
+#[cfg(target_family = "windows")]
 fn prepare_pid_uid_gid() -> Result<[u8; 12]> {
     let pid: u32 = std::process::id();
     let uid = get_uid()?;
@@ -184,6 +188,7 @@ fn prepare_pid_uid_gid() -> Result<[u8; 12]> {
 }
 
 /// Get uid from the bash command 'ps'.
+#[cfg(target_family = "windows")]
 fn get_uid() -> Result<u32> {
     let vec_byte_out = std::process::Command::new(r#"C:\Program Files\Git\usr\bin\bash.exe"#)
         .arg("-c")
@@ -198,6 +203,7 @@ fn get_uid() -> Result<u32> {
 /// Change order of bytes for pid, uid and gid.
 ///
 /// Every u32 is converted to LittleEndian.
+#[cfg(target_family = "windows")]
 fn order_bytes_pid_uid_gid(pid: u32, uid: u32, gid: u32) -> Result<[u8; 12]> {
     let mut pid_uid_gid: [u8; 12] = [0; 12];
     pid_uid_gid[0..4].swap_with_slice(&mut pid.to_le_bytes());
@@ -207,6 +213,7 @@ fn order_bytes_pid_uid_gid(pid: u32, uid: u32, gid: u32) -> Result<[u8; 12]> {
 }
 
 /// Parse uid from 'ps' bash command.
+#[cfg(target_family = "windows")]
 fn parse_uid(string_output: std::borrow::Cow<'_, str>) -> Result<u32> {
     // The output is like this:
     //       PID    PPID    PGID     WINPID   TTY         UID    STIME COMMAND
@@ -239,6 +246,7 @@ fn parse_uid(string_output: std::borrow::Cow<'_, str>) -> Result<u32> {
 /// Original guid looks like this: 01020304-05060708-090A0B0C-0D0E0F10.
 /// Two hexadecimals digits form one u8 byte. There are 4 groups with 4 u8 bytes.
 /// Eight hexadecimal digits form one u32 byte. That is one group.
+#[cfg(target_family = "windows")]
 fn parse_guid_and_change_byte_order(key_guid: &str) -> Result<[u8; 16]> {
     let group0 = u32::from_str_radix(&key_guid[0..8], 16).map_err(|_| {
         Error::GitBashErrorMessage("Guid in SSH_AUTH_SOCK is incorrect.".to_string())
@@ -267,6 +275,7 @@ mod tests {
     use super::*;
 
     #[test]
+    #[cfg(target_family = "windows")]
     fn test_parse_fake_socket_metadata() {
         let conn_string = "!<socket >49722 s 09B97624-72E2CDC5-38596B86-E9F0B690\0";
         let (tcp_address, key_guid) = parse_fake_socket_metadata(conn_string).unwrap();
@@ -275,6 +284,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(target_family = "windows")]
     fn test_parse_uid() {
         let string_output = r#"       PID    PPID    PGID     WINPID   TTY         UID    STIME COMMAND
       1344       1    1344      15352  ?         197610 13:36:43 /usr/bin/ssh-agent
@@ -285,6 +295,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(target_family = "windows")]
     fn test_parse_guid_and_change_byte_order() {
         let guid = "09B97624-72E2CDC5-38596B86-E9F0B690";
         let ordered_guid = parse_guid_and_change_byte_order(guid).unwrap();
@@ -295,6 +306,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(target_family = "windows")]
     fn test_order_bytes_pid_uid_gid() {
         let pid_uid_gid = order_bytes_pid_uid_gid(1, 2, 3).unwrap();
         let compare_with: [u8; 12] = [1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0];

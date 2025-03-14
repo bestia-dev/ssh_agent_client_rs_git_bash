@@ -13,5 +13,7 @@ pub enum Error {
     GitBashErrorMessage(String),
     /// There was an io::Error communicating with the agent
     #[error("An error occurred communicating with the agent")]
-    AgentCommunicationError(#[from] std::io::Error),
+    AgentCommunication(#[from] std::io::Error),
+    #[error(transparent)]
+    SshAgentClientRs(#[from] ssh_agent_client_rs::Error),
 }
