@@ -55,9 +55,14 @@ jobs:
 
     - uses: 1arp/create-a-file-action@0.4.5
       with:
-        path: 'src'
-        isAbsolutePath: false
-        file: 'agent_load.sh'
+        path: c:\\Users\\runneradmin\\.ssh
+        file: agent.env
+        isAbsolutePath: true
+        content: empty file
+
+    - uses: 1arp/create-a-file-action@0.4.5
+      with:
+        file: ssh_agent_load.sh
         content: |
           env=~/.ssh/agent.env
           agent_load_env () { test -f "$env" && . "$env" | /dev/null ; }
@@ -76,10 +81,11 @@ jobs:
           fi
           unset env
           printf " \n"
+          ssh-add -l
 
     - name:  "shell: C:\\Program Files\\Git\\usr\\bin\\bash.exe"
       shell: bash
-      run: sh agent_load.sh
-       
+      run: sh ssh_agent_load.sh
+
     - name: cargo test
       run: cargo test
