@@ -300,8 +300,7 @@
 <a href="#299" id="299">299</a>
 <a href="#300" id="300">300</a>
 <a href="#301" id="301">301</a>
-<a href="#302" id="302">302</a>
-<a href="#303" id="303">303</a></pre></div><pre class="rust"><code><span class="comment">// ssh_agent_client_rs_git_bash/src/lib.rs
+<a href="#302" id="302">302</a></pre></div><pre class="rust"><code><span class="comment">// ssh_agent_client_rs_git_bash/src/lib.rs
 
 // region: auto_md_to_doc_comments include README.md A //!
 </span><span class="doccomment">//! # ssh_agent_client_rs_git_bash
@@ -336,7 +335,7 @@
 //! Instead of adding dependency to `ssh-agent-client-rs`, add `ssh_agent_client_rs_git_bash`.  
 //! Instead of `ssh_agent_client_rs::Client::connect()`, use the universal method of the new trait:
 //!
-//! ```rust ignore
+//! ```rust no_run
 //! // Cargo.toml/[dependencies]
 //! // ssh_agent_client_rs_git_bash = {git="https://github.com/bestia-dev/ssh_agent_client_rs_git_bash.git"}
 //!
@@ -345,7 +344,6 @@
 //! let mut client = ssh_agent_client_rs_git_bash::Client::connect_to_git_bash_or_linux(&amp;path_ssh_auth_sock)
 //!     .expect("Cannot connect to ssh-agent.");
 //! ```
-//!
 //!
 //! ## Windows git-bash
 //!
