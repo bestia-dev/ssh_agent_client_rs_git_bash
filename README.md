@@ -18,7 +18,6 @@
  [![Documentation](https://docs.rs/ssh_agent_client_rs_git_bash/badge.svg)](https://docs.rs/ssh_agent_client_rs_git_bash/)
  ![License](https://img.shields.io/badge/license-MIT-blue.svg)
  ![Rust](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/workflows/rust_fmt_auto_build_test/badge.svg)
- [![Newest docs](https://img.shields.io/badge/newest_docs-blue.svg)](https://bestia-dev.github.io/ssh_agent_client_rs_git_bash/ssh_agent_client_rs_git_bash/index.html)
  ![ssh_agent_client_rs_git_bash](https://bestia.dev/webpage_hit_counter/get_svg_image/928692335.svg)
 
 [//]: # (auto_lines_of_code start)
@@ -31,16 +30,21 @@ My projects on GitHub are more like a tutorial than a finished product: [bestia-
 ## Description
 
 This is an extension for the crate [ssh-agent-client-rs](https://github.com/nresare/ssh-agent-client-rs).  
-It adds the implementation for windows git-bash.
+It adds the implementation for windows git-bash.  
+The original dependency is re-exported.  
+Instead of adding dependency to `ssh-agent-client-rs`, add `ssh_agent_client_rs_git_bash`.  
+Instead of `ssh_agent_client_rs::Client::connect()`, use the universal method of the new trait:
 
 ```rust
-// Cargo.toml/dependencies
+// Cargo.toml/[dependencies]
 // ssh_agent_client_rs_git_bash = {git="https://github.com/bestia-dev/ssh_agent_client_rs_git_bash.git"}
-// Instead of the normal ssh_agent_client_rs::Client::connect(), use the universal method of the new trait.
+
+// import trait to scope
 use ssh_agent_client_rs_git_bash::GitBash;
 let mut client = ssh_agent_client_rs_git_bash::Client::connect_to_git_bash_or_linux(&path_ssh_auth_sock)
     .expect("Cannot connect to ssh-agent.");
 ```
+
 
 ## Windows git-bash
 
