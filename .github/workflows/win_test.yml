@@ -21,28 +21,11 @@ jobs:
 
     - name:  "mkdir ~/.ssh"
       shell: bash
-      run: mkdir ~/.ssh
-
-    - name:  "ssh-agent -s > ~/.ssh/agent.env"
-      shell: bash
-      run: ssh-agent -s > ~/.ssh/agent.env
-
-    - name:  "source ~/.ssh/agent.env"
-      shell: bash
-      run: source ~/.ssh/agent.env
-
-    - name:  "cat ~/.ssh/agent.env"
-      shell: bash
-      run: cat ~/.ssh/agent.env
-
-    - name:  "echo $SSH_AUTH_SOCK"
-      shell: bash
-      run: echo "$SSH_AUTH_SOCK"
-
-    - name:  "echo $SSH_AGENT_PID;"
-      shell: bash
-      run: echo "$SSH_AGENT_PID"
-
-    - name:  "ssh-add -l"
-      shell: bash
-      run: ssh-add -l
+      run: |
+        mkdir ~/.ssh
+        ssh-agent -s > ~/.ssh/agent.env
+        source ~/.ssh/agent.env
+        cat ~/.ssh/agent.env
+        echo "$SSH_AUTH_SOCK"
+        echo "$SSH_AGENT_PID"
+        ssh-add -l
