@@ -32,7 +32,7 @@ jobs:
         isAbsolutePath: true
         file: .bashrc
         content: |
-          printf "Run ssh-agent and write SSH_AUTH_SOCK \n"
+          printf "  \033[33m Run ssh-agent and write SSH_AUTH_SOCK  \033[0m\n"
           env=~/.ssh/agent.env
           agent_load_env () { test -f "$env" && . "$env" | /dev/null ; }
           agent_start () {
@@ -44,18 +44,22 @@ jobs:
           if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
             printf "  \033[33m Starting ssh-agent as a windows process in the background... \033[0m\n"
             agent_start
-            # printf "Setting Windows SSH user environment variables (pid: $SSH_AGENT_PID, sock: $SSH_AUTH_SOCK)\n"
+            printf "  \033[33m Setting Windows SSH user environment variables (pid: $SSH_AGENT_PID, sock: $SSH_AUTH_SOCK) \033[0m\n"
             setx SSH_AGENT_PID "$SSH_AGENT_PID" > /dev/null
             setx SSH_AUTH_SOCK "$SSH_AUTH_SOCK" > /dev/null
           fi
           unset env
-          printf " exit with code 0 \n"
-          exit 0
+          # printf " exit with code 0 \n"
+          # exit 0
 
     - name:  "source ~/.bashrc"
       shell: bash
       run: source ~/.bashrc
 
-    - name:  "ssh-add -l"
+    - name:  "which ssh-add"
       shell: bash
-      run: ssh-add -l
+      run: which ssh-add
+
+    - name:  "echo $SSH_AUTH_SOCK"
+      shell: bash
+      run: echo $SSH_AUTH_SOCK
