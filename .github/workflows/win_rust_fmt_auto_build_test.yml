@@ -82,8 +82,9 @@ jobs:
           unset env
           printf " \n"
           ssh-add -l
+          exit 0
 
-    - name:  "shell: C:\\Program Files\\Git\\usr\\bin\\bash.exe"
+    - name:  "sh ssh_agent_load.sh"
       shell: bash
       run: sh ssh_agent_load.sh
 
