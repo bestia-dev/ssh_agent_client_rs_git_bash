@@ -50,5 +50,7 @@ jobs:
     - name: cargo auto build
       run: cargo auto build
 
-    - name: cargo auto test
-      run: cargo auto test
+    - uses: tanmancan/action-setup-ssh-agent-key@1.0.0
+
+    - name: cargo test
+      run: cargo test
