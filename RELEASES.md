@@ -14,6 +14,8 @@ The TODO section is part of the [README.md](https://github.com/bestia-dev/ssh_ag
 
 - linux test
 
+- Linux ok
+
 ## Version 0.0.1
 
 - init
