@@ -53,44 +53,14 @@ jobs:
     - name: install Git for Windows
       run: choco install git.install
 
-    - uses: 1arp/create-a-file-action@0.4.5
-      with:
-        path: c:\\Users\\runneradmin\\.ssh
-        isAbsolutePath: true
-        file: agent.env
-        content: 
-
-    - uses: 1arp/create-a-file-action@0.4.5
-      with:
-        path: c:\\Users\\runneradmin
-        isAbsolutePath: true
-        file: .bashrc
-        content: |
-          printf "Run ssh-agent and write SSH_AUTH_SOCK \n"
-          env=~/.ssh/agent.env
-          agent_load_env () { test -f "$env" && . "$env" | /dev/null ; }
-          agent_start () {
-            (umask 077; ssh-agent >| "$env")
-          . "$env" >| /dev/null ; }
-          agent_load_env
-          # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
-          agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
-          if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
-            printf "  \033[33m Starting ssh-agent as a windows process in the background... \033[0m\n"
-            agent_start
-            # printf "Setting Windows SSH user environment variables (pid: $SSH_AGENT_PID, sock: $SSH_AUTH_SOCK)\n"
-            setx SSH_AGENT_PID "$SSH_AGENT_PID" > /dev/null
-            setx SSH_AUTH_SOCK "$SSH_AUTH_SOCK" > /dev/null
-          fi
-          unset env
-          printf " \n"
-          ssh-add -l
-          printf " exit with code 0 \n"
-          exit 0
-
-    - name:  "ssh-add -l"
+    # every action step opens a new shell and looses the env var of the previous step
+    - name:  "start ssh-agent"
       shell: bash
-      run: ssh-add -l
-
-    - name: cargo test
-      run: cargo test
+      run: |
+        mkdir ~/.ssh
+        ssh-agent -s > ~/.ssh/agent.env
+        source ~/.ssh/agent.env
+        cat ~/.ssh/agent.env
+        echo "$SSH_AUTH_SOCK"
+        echo "$SSH_AGENT_PID"
+        cargo test

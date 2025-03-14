@@ -19,7 +19,8 @@ jobs:
     - name: install Git for Windows
       run: choco install git.install
 
-    - name:  "mkdir ~/.ssh"
+    # every action step opens a new shell and looses the env var of the previous step
+    - name:  "start ssh-agent"
       shell: bash
       run: |
         mkdir ~/.ssh
