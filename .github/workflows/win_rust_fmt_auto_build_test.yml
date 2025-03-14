@@ -53,10 +53,33 @@ jobs:
     - name: install Git for Windows
       run: choco install git.install
 
+    - uses: 1arp/create-a-file-action@0.4.5
+      with:
+        path: 'src'
+        isAbsolutePath: false
+        file: 'agent_load.sh'
+        content: |
+          env=~/.ssh/agent.env
+          agent_load_env () { test -f "$env" && . "$env" | /dev/null ; }
+          agent_start () {
+            (umask 077; ssh-agent >| "$env")
+          . "$env" >| /dev/null ; }
+          agent_load_env
+          # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
+          agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+          if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+            printf "  \033[33m Starting ssh-agent as a windows process in the background... \033[0m\n"
+            agent_start
+            # printf "Setting Windows SSH user environment variables (pid: $SSH_AGENT_PID, sock: $SSH_AUTH_SOCK)\n"
+            setx SSH_AGENT_PID "$SSH_AGENT_PID" > /dev/null
+            setx SSH_AUTH_SOCK "$SSH_AUTH_SOCK" > /dev/null
+          fi
+          unset env
+          printf " \n"
+
     - name:  "shell: C:\\Program Files\\Git\\usr\\bin\\bash.exe"
       shell: bash
-      run:   |
-        eval $(ssh-agent)
-
+      run: sh agent_load.sh
+       
     - name: cargo test
       run: cargo test

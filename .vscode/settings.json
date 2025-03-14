@@ -51,6 +51,7 @@
         "rustprojects",
         "sccache",
         "serde",
+        "setx",
         "sscanf",
         "sshadd",
         "STIME",
