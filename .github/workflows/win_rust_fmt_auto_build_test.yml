@@ -56,14 +56,17 @@ jobs:
     - uses: 1arp/create-a-file-action@0.4.5
       with:
         path: c:\\Users\\runneradmin\\.ssh
-        file: agent.env
         isAbsolutePath: true
+        file: agent.env
         content: empty file
 
     - uses: 1arp/create-a-file-action@0.4.5
       with:
-        file: ssh_agent_load.sh
+        path: c:\\Users\\runneradmin
+        isAbsolutePath: true
+        file: .bashrc
         content: |
+          printf "Run ssh-agent and write SSH_AUTH_SOCK \n"
           env=~/.ssh/agent.env
           agent_load_env () { test -f "$env" && . "$env" | /dev/null ; }
           agent_start () {
@@ -82,11 +85,12 @@ jobs:
           unset env
           printf " \n"
           ssh-add -l
+          printf " exit with code 0 \n"
           exit 0
 
-    - name:  "sh ssh_agent_load.sh"
+    - name:  "ssh-add -l"
       shell: bash
-      run: sh ssh_agent_load.sh
+      run: ssh-add -l
 
     - name: cargo test
       run: cargo test
