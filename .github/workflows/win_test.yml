@@ -19,12 +19,14 @@ jobs:
 
     - uses: 1arp/create-a-file-action@0.4.5
       with:
-        file: '/c/Users/runneradmin/.ssh/agent.env'
+        path: /c/Users/runneradmin/.ssh/
+        file: agent.env
+        isAbsolutePath: true
         content: empty file
 
     - uses: 1arp/create-a-file-action@0.4.5
       with:
-        file: 'ssh_agent_load.sh'
+        file: ssh_agent_load.sh
         content: |
           env=~/.ssh/agent.env
           agent_load_env () { test -f "$env" && . "$env" | /dev/null ; }
