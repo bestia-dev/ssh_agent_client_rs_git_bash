@@ -7,11 +7,11 @@ fn test_win_git_bash_or_linux() {
     let var_ssh_auth_sock =
         std::env::var("SSH_AUTH_SOCK").expect("Env var SSH_AUTH_SOCK does not exist.");
     let path_ssh_auth_sock = std::path::PathBuf::from(&var_ssh_auth_sock);
-    use ssh_agent_client_rs_git_bash::GitBash;
 
+    use ssh_agent_client_rs_git_bash::GitBash;
     let mut client =
         ssh_agent_client_rs_git_bash::Client::connect_to_git_bash_or_linux(&path_ssh_auth_sock)
-            .expect("Cannot connect to ssh-agent in windows.");
+            .expect("Cannot connect to ssh-agent.");
 
     client
         .remove_all_identities()
