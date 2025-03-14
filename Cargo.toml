@@ -11,7 +11,7 @@ authors = ["Bestia.dev"]
 homepage = "https://bestia.dev"
 edition = "2021"
 description = "Add git-bash ssh-agent implementation for ssh-agent-client-rs"
-repository = "https://github.com/automation-tasks-rs/ssh_agent_client_rs_git_bash"
+repository = "https://github.com/bestia-dev/ssh_agent_client_rs_git_bash"
 readme = "README.md"
 license = "MIT"
 # Keyword must be only one word: lowercase letters, hyphens(-) or numbers, less then 35 characters, at most 5 keywords per crate
