@@ -19,9 +19,13 @@ jobs:
     - name: install Git for Windows
       run: choco install git.install
 
-    - name:  "ssh-agent -s >~/.ssh/agent.env"
+    - name:  "mkdir ~/.ssh"
       shell: bash
-      run: ssh-agent -s >~/.ssh/agent.env
+      run: mkdir ~/.ssh
+
+    - name:  "ssh-agent -s > ~/.ssh/agent.env"
+      shell: bash
+      run: ssh-agent -s > ~/.ssh/agent.env
 
     - name:  "source ~/.ssh/agent.env"
       shell: bash
