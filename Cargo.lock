@@ -656,7 +656,7 @@ dependencies = [
 
 [[package]]
 name = "ssh_agent_client_rs_git_bash"
-version = "0.0.3"
+version = "0.0.7"
 dependencies = [
  "anyhow",
  "ssh-agent-client-rs",
