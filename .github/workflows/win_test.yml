@@ -37,7 +37,7 @@ jobs:
           agent_load_env () { test -f "$env" && . "$env" | /dev/null ; }
           agent_start () {
             (umask 077; ssh-agent >| "$env")
-          . "$env" >| /dev/null ; }
+            . "$env" >| /dev/null ; }
           agent_load_env
           # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
           agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
@@ -45,8 +45,8 @@ jobs:
             printf "  \033[33m Starting ssh-agent as a windows process in the background... \033[0m\n"
             agent_start
             printf "  \033[33m Setting Windows SSH user environment variables (pid: $SSH_AGENT_PID, sock: $SSH_AUTH_SOCK) \033[0m\n"
-            setx SSH_AGENT_PID "$SSH_AGENT_PID" > /dev/null
-            setx SSH_AUTH_SOCK "$SSH_AUTH_SOCK" > /dev/null
+            setx SSH_AGENT_PID "$SSH_AGENT_PID" 
+            setx SSH_AUTH_SOCK "$SSH_AUTH_SOCK" 
           fi
           unset env
           # printf " exit with code 0 \n"
@@ -56,9 +56,9 @@ jobs:
       shell: bash
       run: source ~/.bashrc
 
-    - name:  "which ssh-add"
+    - name:  "cat ~/.ssh/agent.env"
       shell: bash
-      run: which ssh-add
+      run: cat ~/.ssh/agent.env
 
     - name:  "echo $SSH_AUTH_SOCK"
       shell: bash
