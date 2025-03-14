@@ -72,9 +72,9 @@
 // endregion: auto_md_to_doc_comments include README.md A //!
 
 mod error;
-use error::{Error, Result};
-
-use std::io::{Read, Write};
+#[cfg(target_family = "windows")]
+use error::Error;
+use error::Result;
 
 /// Re-export ssh-agent-client-rs Client.
 pub use ssh_agent_client_rs::Client;
@@ -130,6 +130,7 @@ fn do_secret_handshake_with_remote_end(
     key_guid: &str,
     tcp_stream: &mut std::net::TcpStream,
 ) -> Result<()> {
+    use std::io::{Read, Write};
     let b1 = parse_guid_and_change_byte_order(key_guid)?;
     let _amount = tcp_stream.write(&b1)?;
     let mut b2: [u8; 16] = [0; 16];
