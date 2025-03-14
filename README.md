@@ -38,16 +38,22 @@ This is an extension for the crate [ssh-agent-client-rs](https://github.com/nres
 It adds the implementation for windows git-bash.  
 The original dependency is re-exported.  
 Instead of adding dependency to `ssh-agent-client-rs`, add `ssh_agent_client_rs_git_bash`.  
-Instead of `ssh_agent_client_rs::Client::connect()`, use the universal method of the new trait:
+Instead of `Client::connect()`, use the method `Client::connect_to_git_bash_or_linux()` of the new trait:
 
-```ignore
-// Cargo.toml/[dependencies]
-// ssh_agent_client_rs_git_bash = {git="https://github.com/bestia-dev/ssh_agent_client_rs_git_bash.git"}
+```toml
+# Cargo.toml
+[dependencies]
+ssh_agent_client_rs_git_bash = {git="https://github.com/bestia-dev/ssh_agent_client_rs_git_bash.git"}
+```
 
+```ignore rust
+use ssh_agent_client_rs_git_bash::Client;
 // import trait to scope
 use ssh_agent_client_rs_git_bash::GitBash;
-let mut client = ssh_agent_client_rs_git_bash::Client::connect_to_git_bash_or_linux(&path_ssh_auth_sock)
+let mut client = Client::connect_to_git_bash_or_linux(&path_ssh_auth_sock)
     .expect("Cannot connect to ssh-agent.");
+// then normal code with Client
+client.list-identities().unwrap;
 ```
 
 ## Windows git-bash
