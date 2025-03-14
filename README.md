@@ -5,7 +5,7 @@
 
 [//]: # (auto_cargo_toml_to_md start)
 
-**Add git-bash ssh-agent implementation for ssh-agent-client-rs**  
+**Add git-bash ssh-agent implementation for nresare/ssh-agent-client-rs**  
 ***version: 0.0.8 date: 2025-03-14 author: [Bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash)***
 
  ![maintained](https://img.shields.io/badge/maintained-green)
