@@ -46,7 +46,7 @@ Instead of `Client::connect()`, use the method `Client::connect_to_git_bash_or_l
 ssh_agent_client_rs_git_bash = {git="https://github.com/bestia-dev/ssh_agent_client_rs_git_bash.git"}
 ```
 
-```ignore rust
+```rust ignore
 use ssh_agent_client_rs_git_bash::Client;
 // import trait to scope
 use ssh_agent_client_rs_git_bash::GitBash;
