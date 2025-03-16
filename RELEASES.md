@@ -18,6 +18,8 @@ The TODO section is part of the [README.md](https://github.com/bestia-dev/ssh_ag
 
 - depends on 1.0.0. on crates.io
 
+- publish = true
+
 ## Version 0.0.1
 
 - init
