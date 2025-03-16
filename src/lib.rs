@@ -3,8 +3,8 @@
 // region: auto_md_to_doc_comments include README.md A //!
 //! # ssh_agent_client_rs_git_bash
 //!
-//! **Add git-bash ssh-agent implementation for ssh-agent-client-rs**  
-//! ***version: 0.0.10 date: 2025-03-16 author: [Bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash)***
+//! **Add git-bash ssh-agent implementation for nresare/ssh-agent-client-rs**  
+//! ***version: 0.0.11 date: 2025-03-16 author: [Bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash)***
 //!
 //!  ![maintained](https://img.shields.io/badge/maintained-green)
 //!  ![ready-for-use](https://img.shields.io/badge/ready_for_use-green)
@@ -27,20 +27,26 @@
 //!
 //! ## Description
 //!
-//! This is an extension for the crate [ssh-agent-client-rs](https://github.com/nresare/ssh-agent-client-rs).  
+//! This is an extension for the crate [nresare/ssh-agent-client-rs](https://github.com/nresare/ssh-agent-client-rs).  
 //! It adds the implementation for windows git-bash.  
 //! The original dependency is re-exported.  
 //! Instead of adding dependency to `ssh-agent-client-rs`, add `ssh_agent_client_rs_git_bash`.  
-//! Instead of `ssh_agent_client_rs::Client::connect()`, use the universal method of the new trait:
+//! Instead of `Client::connect()`, use the method `Client::connect_to_git_bash_or_linux()` of the new trait:
 //!
-//! ```ignore
-//! // Cargo.toml/[dependencies]
-//! // ssh_agent_client_rs_git_bash = {git="https://github.com/bestia-dev/ssh_agent_client_rs_git_bash.git"}
+//! ```toml
+//! # Cargo.toml
+//! [dependencies]
+//! ssh_agent_client_rs_git_bash = {git="https://github.com/bestia-dev/ssh_agent_client_rs_git_bash.git"}
+//! ```
 //!
+//! ```rust ignore
+//! use ssh_agent_client_rs_git_bash::Client;
 //! // import trait to scope
 //! use ssh_agent_client_rs_git_bash::GitBash;
-//! let mut client = ssh_agent_client_rs_git_bash::Client::connect_to_git_bash_or_linux(&path_ssh_auth_sock)
+//! let mut client = Client::connect_to_git_bash_or_linux(&path_ssh_auth_sock)
 //!     .expect("Cannot connect to ssh-agent.");
+//! // then normal code with Client
+//! client.list-identities().unwrap;
 //! ```
 //!
 //! ## Windows git-bash

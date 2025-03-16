@@ -22,6 +22,8 @@ The TODO section is part of the [README.md](https://github.com/bestia-dev/ssh_ag
 
 - publish = true
 
+- readme
+
 ## Version 0.0.1
 
 - init
