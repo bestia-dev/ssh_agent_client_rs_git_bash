@@ -128,8 +128,9 @@ pub(crate) fn decode64_from_string_to_string(string_to_decode: &str) -> anyhow::
 /// Else it uses the private key and ask the user to input the passphrase.
 /// The secret signed seed will be the actual password for symmetrical encryption.
 /// Returns secret_password_bytes
-pub(crate) fn sign_seed_with_ssh_agent_or_private_key_file(private_key_file_path: &camino::Utf8Path, plain_seed_bytes_32bytes: [u8; 32]) -> anyhow::Result<SecretBox<[u8; 32]>> {
-    let secret_passcode_32bytes_maybe = sign_seed_with_ssh_agent(plain_seed_bytes_32bytes, private_key_file_path);
+pub(crate) fn sign_seed_with_ssh_agent_or_private_key_file(tilde_private_key_file_path: &str, plain_seed_bytes_32bytes: [u8; 32]) -> anyhow::Result<SecretBox<[u8; 32]>> {
+    let private_key_file_path = crate::cl::tilde_expand_to_home_dir_utf8(tilde_private_key_file_path)?;
+    let secret_passcode_32bytes_maybe = sign_seed_with_ssh_agent(plain_seed_bytes_32bytes, &private_key_file_path);
     let secret_passcode_32bytes: SecretBox<[u8; 32]> = if secret_passcode_32bytes_maybe.is_ok() {
         secret_passcode_32bytes_maybe?
     } else {
@@ -139,10 +140,10 @@ pub(crate) fn sign_seed_with_ssh_agent_or_private_key_file(private_key_file_path
         println!("  {YELLOW}This is more secure, but inconvenient.{RESET}");
         println!("  {YELLOW}WARNING: using ssh-agent is less secure, because there is no need for user interaction.{RESET}");
         println!("  {YELLOW}Knowing this, you can manually add the SSH private key to ssh-agent for 1 hour:{RESET}");
-        println!("{GREEN}ssh-add -t 1h {private_key_file_path}{RESET}");
+        println!("{GREEN}ssh-add -t 1h {tilde_private_key_file_path}{RESET}");
         println!("  {YELLOW}Unlock the private key to decrypt the saved file.{RESET}");
 
-        sign_seed_with_private_key_file(plain_seed_bytes_32bytes, private_key_file_path)?
+        sign_seed_with_private_key_file(plain_seed_bytes_32bytes, &private_key_file_path)?
     };
     Ok(secret_passcode_32bytes)
 }
