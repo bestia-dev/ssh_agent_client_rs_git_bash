@@ -45,6 +45,7 @@
         "PPID",
         "Prost",
         "reqwest",
+        "runneradmin",
         "rustc",
         "rustdevuser",
         "rustlang",
