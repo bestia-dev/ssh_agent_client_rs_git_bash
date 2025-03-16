@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["error"],"struct":["Client"],"trait":["GitBash"]};
+window.SIDEBAR_ITEMS = {"fn":["do_secret_handshake_with_remote_end","get_uid","order_bytes_pid_uid_gid","parse_fake_socket_metadata","parse_guid_and_change_byte_order","parse_uid","prepare_pid_uid_gid","read_and_parse_fake_socket_file"],"mod":["error"],"struct":["Client"],"trait":["GitBash"]};
