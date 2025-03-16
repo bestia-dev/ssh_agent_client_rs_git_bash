@@ -6,7 +6,7 @@ name = "ssh_agent_client_rs_git_bash"
 # increment PATCH version when you make bug fixes (that are backward compatible)
 # PATCH version MUST be reset to 0 when MINOR version is incremented.
 # PATCH and MINOR versions MUST be reset to 0 when MAJOR version is incremented.
-version = "0.0.8"
+version = "0.0.9"
 authors = ["Bestia.dev"]
 homepage = "https://bestia.dev"
 edition = "2021"
@@ -32,7 +32,7 @@ include = [
 # SemVer rules: Major version zero (0.y.z) is for initial development. Anything MAY change at any time. The public API SHOULD NOT be considered stable.
 # WARNING: Although dependencies in Cargo.toml look like a specific version of the crate, they are just like a caret version (^x.y.z) and actually specify 
 # the minimum version and allow automatic SemVer compatible updates up to a MAJOR increment! Always check the true version with `cargo tree`!
-ssh-agent-client-rs={git="https://github.com/nresare/ssh-agent-client-rs", branch="main"}
+ssh-agent-client-rs="1.0.0"
 thiserror = "2.0.12"
 anyhow="1.0.97"
 ssh-key="0.6.7"

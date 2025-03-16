@@ -6,7 +6,7 @@
 [//]: # (auto_cargo_toml_to_md start)
 
 **Add git-bash ssh-agent implementation for ssh-agent-client-rs**  
-***version: 0.0.8 date: 2025-03-14 author: [Bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash)***
+***version: 0.0.9 date: 2025-03-16 author: [Bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash)***
 
  ![maintained](https://img.shields.io/badge/maintained-green)
  ![ready-for-use](https://img.shields.io/badge/ready_for_use-green)
@@ -25,7 +25,7 @@
 [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-113-blue.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 [![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-14-purple.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 [![Lines in examples](https://img.shields.io/badge/Lines_in_examples-0-yellow.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
-[![Lines in tests](https://img.shields.io/badge/Lines_in_tests-129-orange.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
+[![Lines in tests](https://img.shields.io/badge/Lines_in_tests-130-orange.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 
 [//]: # (auto_lines_of_code end)
 
