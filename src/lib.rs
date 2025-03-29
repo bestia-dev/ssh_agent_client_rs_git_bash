@@ -4,7 +4,7 @@
 //! # ssh_agent_client_rs_git_bash
 //!
 //! **Add git-bash ssh-agent implementation for nresare/ssh-agent-client-rs**  
-//! ***version: 0.0.12 date: 2025-03-16 author: [Bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash)***
+//! ***version: 0.0.14 date: 2025-03-29 author: [Bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash)***
 //!
 //!  ![maintained](https://img.shields.io/badge/maintained-green)
 //!  ![ready-for-use](https://img.shields.io/badge/ready_for_use-green)
@@ -16,11 +16,11 @@
 //!  ![Rust](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/workflows/rust_fmt_auto_build_test/badge.svg)
 //!  ![ssh_agent_client_rs_git_bash](https://bestia.dev/webpage_hit_counter/get_svg_image/928692335.svg)
 //!
-//! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-164-green.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
+//! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-151-green.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 //! [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-119-blue.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 //! [![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-14-purple.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 //! [![Lines in examples](https://img.shields.io/badge/Lines_in_examples-0-yellow.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
-//! [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-130-orange.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
+//! [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-99-orange.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 //!
 //! Hashtags: #maintained #ready-for-use #rustlang  
 //! My projects on GitHub are more like a tutorial than a finished product: [bestia-dev tutorials](https://github.com/bestia-dev/tutorials_rust_wasm).  
@@ -134,10 +134,7 @@ fn read_and_parse_fake_socket_file(path: &std::path::Path) -> Result<(String, St
 
 /// Secret handshake only for ssh-agent in git-bash.
 #[cfg(target_family = "windows")]
-fn do_secret_handshake_with_remote_end(
-    key_guid: &str,
-    tcp_stream: &mut std::net::TcpStream,
-) -> Result<()> {
+fn do_secret_handshake_with_remote_end(key_guid: &str, tcp_stream: &mut std::net::TcpStream) -> Result<()> {
     use std::io::{Read, Write};
     let b1 = parse_guid_and_change_byte_order(key_guid)?;
     let _amount = tcp_stream.write(&b1)?;
@@ -155,19 +152,17 @@ fn do_secret_handshake_with_remote_end(
 /// example: `!<socket >49722 s 09B97624-72E2CDC5-38596B86-E9F0B690\0`
 #[cfg(target_family = "windows")]
 fn parse_fake_socket_metadata(conn_string: &str) -> Result<(String, String)> {
-    let conn_string = conn_string
-        .trim_start_matches("!<socket >")
-        .trim_end_matches("\0");
+    let conn_string = conn_string.trim_start_matches("!<socket >").trim_end_matches("\0");
     let mut split_iter = conn_string.split_whitespace();
-    let tcp_port = split_iter.next().ok_or_else(|| {
-        Error::GitBashErrorMessage("Bad format in ssh agent connection file.".to_string())
-    })?;
-    let is_cygwin = split_iter.next().ok_or_else(|| {
-        Error::GitBashErrorMessage("Bad format in ssh agent connection file.".to_string())
-    })?;
-    let key_guid = split_iter.next().ok_or_else(|| {
-        Error::GitBashErrorMessage("Bad format in ssh agent connection file.".to_string())
-    })?;
+    let tcp_port = split_iter
+        .next()
+        .ok_or_else(|| Error::GitBashErrorMessage("Bad format in ssh agent connection file.".to_string()))?;
+    let is_cygwin = split_iter
+        .next()
+        .ok_or_else(|| Error::GitBashErrorMessage("Bad format in ssh agent connection file.".to_string()))?;
+    let key_guid = split_iter
+        .next()
+        .ok_or_else(|| Error::GitBashErrorMessage("Bad format in ssh agent connection file.".to_string()))?;
     // The character 's' defines the newer version of MSys2 or cygwin or mingw64.
     // Only this ssh-agent implementation is supported. The older are not supported.
     if is_cygwin != "s" {
@@ -227,23 +222,19 @@ fn parse_uid(string_output: std::borrow::Cow<'_, str>) -> Result<u32> {
     //      2542       1    2542      21776  cons1     197610 19:09:45 /usr/bin/bash
     // The UID is equal for all rows. We will use the second row.
     let mut lines = string_output.lines();
-    let _line_0 = lines.next().ok_or_else(|| {
-        Error::GitBashErrorMessage("Command 'ps' did not return correct list.".to_string())
-    })?;
-    let line_1 = lines.next().ok_or_else(|| {
-        Error::GitBashErrorMessage("Command 'ps' did not return correct list.".to_string())
-    })?;
+    let _line_0 = lines
+        .next()
+        .ok_or_else(|| Error::GitBashErrorMessage("Command 'ps' did not return correct list.".to_string()))?;
+    let line_1 = lines
+        .next()
+        .ok_or_else(|| Error::GitBashErrorMessage("Command 'ps' did not return correct list.".to_string()))?;
     let mut columns = line_1.split_ascii_whitespace();
     // The 5th column is the UID.
     let uid: u32 = columns
         .nth(5)
-        .ok_or_else(|| {
-            Error::GitBashErrorMessage("Command 'ps' did not return correct list.".to_string())
-        })?
+        .ok_or_else(|| Error::GitBashErrorMessage("Command 'ps' did not return correct list.".to_string()))?
         .parse()
-        .map_err(|_| {
-            Error::GitBashErrorMessage("Format of 'bash.exe -c ps' is incorrect.".to_string())
-        })?;
+        .map_err(|_| Error::GitBashErrorMessage("Format of 'bash.exe -c ps' is incorrect.".to_string()))?;
     Ok(uid)
 }
 
@@ -254,18 +245,14 @@ fn parse_uid(string_output: std::borrow::Cow<'_, str>) -> Result<u32> {
 /// Eight hexadecimal digits form one u32 byte. That is one group.
 #[cfg(target_family = "windows")]
 fn parse_guid_and_change_byte_order(key_guid: &str) -> Result<[u8; 16]> {
-    let group0 = u32::from_str_radix(&key_guid[0..8], 16).map_err(|_| {
-        Error::GitBashErrorMessage("Guid in SSH_AUTH_SOCK is incorrect.".to_string())
-    })?;
-    let group1 = u32::from_str_radix(&key_guid[9..17], 16).map_err(|_| {
-        Error::GitBashErrorMessage("Guid in SSH_AUTH_SOCK is incorrect.".to_string())
-    })?;
-    let group2 = u32::from_str_radix(&key_guid[18..26], 16).map_err(|_| {
-        Error::GitBashErrorMessage("Guid in SSH_AUTH_SOCK is incorrect.".to_string())
-    })?;
-    let group3 = u32::from_str_radix(&key_guid[27..35], 16).map_err(|_| {
-        Error::GitBashErrorMessage("Guid in SSH_AUTH_SOCK is incorrect.".to_string())
-    })?;
+    let group0 = u32::from_str_radix(&key_guid[0..8], 16)
+        .map_err(|_| Error::GitBashErrorMessage("Guid in SSH_AUTH_SOCK is incorrect.".to_string()))?;
+    let group1 = u32::from_str_radix(&key_guid[9..17], 16)
+        .map_err(|_| Error::GitBashErrorMessage("Guid in SSH_AUTH_SOCK is incorrect.".to_string()))?;
+    let group2 = u32::from_str_radix(&key_guid[18..26], 16)
+        .map_err(|_| Error::GitBashErrorMessage("Guid in SSH_AUTH_SOCK is incorrect.".to_string()))?;
+    let group3 = u32::from_str_radix(&key_guid[27..35], 16)
+        .map_err(|_| Error::GitBashErrorMessage("Guid in SSH_AUTH_SOCK is incorrect.".to_string()))?;
     // The secret handshake converts the u32 into LittleEndian.
     // Nobody knows why is that needed, but it is the protocol.
     let mut b1: [u8; 16] = [0; 16];
@@ -306,9 +293,7 @@ mod tests {
     fn test_parse_guid_and_change_byte_order() {
         let guid = "09B97624-72E2CDC5-38596B86-E9F0B690";
         let ordered_guid = parse_guid_and_change_byte_order(guid).unwrap();
-        let compare_with: [u8; 16] = [
-            36, 118, 185, 9, 197, 205, 226, 114, 134, 107, 89, 56, 144, 182, 240, 233,
-        ];
+        let compare_with: [u8; 16] = [36, 118, 185, 9, 197, 205, 226, 114, 134, 107, 89, 56, 144, 182, 240, 233];
         assert_eq!(ordered_guid, compare_with);
     }
 
