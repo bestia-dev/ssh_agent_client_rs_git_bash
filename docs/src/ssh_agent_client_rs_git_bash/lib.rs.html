@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src\lib.rs`."><title>lib.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="ssh_agent_client_rs_git_bash" data-themes="" data-resource-suffix="" data-rustdoc-version="1.85.0 (4d91de4e4 2025-02-17)" data-channel="1.85.0" data-search-js="search-75f5ac3e.js" data-settings-js="settings-0f613d39.js" ><script src="../../static.files/storage-59e33391.js"></script><script defer src="../../static.files/src-script-56102188.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">ssh_agent_client_rs_git_bash/</div>lib.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/lib.rs`."><title>lib.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="ssh_agent_client_rs_git_bash" data-themes="" data-resource-suffix="" data-rustdoc-version="1.85.0 (4d91de4e4 2025-02-17)" data-channel="1.85.0" data-search-js="search-75f5ac3e.js" data-settings-js="settings-0f613d39.js" ><script src="../../static.files/storage-59e33391.js"></script><script defer src="../../static.files/src-script-56102188.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">ssh_agent_client_rs_git_bash/</div>lib.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -305,28 +305,13 @@
 <a href="#304" id="304">304</a>
 <a href="#305" id="305">305</a>
 <a href="#306" id="306">306</a>
-<a href="#307" id="307">307</a>
-<a href="#308" id="308">308</a>
-<a href="#309" id="309">309</a>
-<a href="#310" id="310">310</a>
-<a href="#311" id="311">311</a>
-<a href="#312" id="312">312</a>
-<a href="#313" id="313">313</a>
-<a href="#314" id="314">314</a>
-<a href="#315" id="315">315</a>
-<a href="#316" id="316">316</a>
-<a href="#317" id="317">317</a>
-<a href="#318" id="318">318</a>
-<a href="#319" id="319">319</a>
-<a href="#320" id="320">320</a>
-<a href="#321" id="321">321</a>
-<a href="#322" id="322">322</a></pre></div><pre class="rust"><code><span class="comment">// ssh_agent_client_rs_git_bash/src/lib.rs
+<a href="#307" id="307">307</a></pre></div><pre class="rust"><code><span class="comment">// ssh_agent_client_rs_git_bash/src/lib.rs
 
 // region: auto_md_to_doc_comments include README.md A //!
 </span><span class="doccomment">//! # ssh_agent_client_rs_git_bash
 //!
 //! **Add git-bash ssh-agent implementation for nresare/ssh-agent-client-rs**  
-//! ***version: 0.0.12 date: 2025-03-16 author: [Bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash)***
+//! ***version: 0.0.14 date: 2025-03-29 author: [Bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash)***
 //!
 //!  ![maintained](https://img.shields.io/badge/maintained-green)
 //!  ![ready-for-use](https://img.shields.io/badge/ready_for_use-green)
@@ -338,11 +323,11 @@
 //!  ![Rust](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/workflows/rust_fmt_auto_build_test/badge.svg)
 //!  ![ssh_agent_client_rs_git_bash](https://bestia.dev/webpage_hit_counter/get_svg_image/928692335.svg)
 //!
-//! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-164-green.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
+//! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-151-green.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 //! [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-119-blue.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 //! [![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-14-purple.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 //! [![Lines in examples](https://img.shields.io/badge/Lines_in_examples-0-yellow.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
-//! [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-130-orange.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
+//! [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-99-orange.svg)](https://github.com/bestia-dev/ssh_agent_client_rs_git_bash/)
 //!
 //! Hashtags: #maintained #ready-for-use #rustlang  
 //! My projects on GitHub are more like a tutorial than a finished product: [bestia-dev tutorials](https://github.com/bestia-dev/tutorials_rust_wasm).  
@@ -456,10 +441,7 @@
 
 <span class="doccomment">/// Secret handshake only for ssh-agent in git-bash.
 </span><span class="attr">#[cfg(target_family = <span class="string">"windows"</span>)]
-</span><span class="kw">fn </span>do_secret_handshake_with_remote_end(
-    key_guid: <span class="kw-2">&amp;</span>str,
-    tcp_stream: <span class="kw-2">&amp;mut </span>std::net::TcpStream,
-) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+</span><span class="kw">fn </span>do_secret_handshake_with_remote_end(key_guid: <span class="kw-2">&amp;</span>str, tcp_stream: <span class="kw-2">&amp;mut </span>std::net::TcpStream) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
     <span class="kw">use </span>std::io::{Read, Write};
     <span class="kw">let </span>b1 = parse_guid_and_change_byte_order(key_guid)<span class="question-mark">?</span>;
     <span class="kw">let </span>_amount = tcp_stream.write(<span class="kw-2">&amp;</span>b1)<span class="question-mark">?</span>;
@@ -477,19 +459,17 @@
 /// example: `!&lt;socket &gt;49722 s 09B97624-72E2CDC5-38596B86-E9F0B690\0`
 </span><span class="attr">#[cfg(target_family = <span class="string">"windows"</span>)]
 </span><span class="kw">fn </span>parse_fake_socket_metadata(conn_string: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(String, String)&gt; {
-    <span class="kw">let </span>conn_string = conn_string
-        .trim_start_matches(<span class="string">"!&lt;socket &gt;"</span>)
-        .trim_end_matches(<span class="string">"\0"</span>);
+    <span class="kw">let </span>conn_string = conn_string.trim_start_matches(<span class="string">"!&lt;socket &gt;"</span>).trim_end_matches(<span class="string">"\0"</span>);
     <span class="kw">let </span><span class="kw-2">mut </span>split_iter = conn_string.split_whitespace();
-    <span class="kw">let </span>tcp_port = split_iter.next().ok_or_else(|| {
-        Error::GitBashErrorMessage(<span class="string">"Bad format in ssh agent connection file."</span>.to_string())
-    })<span class="question-mark">?</span>;
-    <span class="kw">let </span>is_cygwin = split_iter.next().ok_or_else(|| {
-        Error::GitBashErrorMessage(<span class="string">"Bad format in ssh agent connection file."</span>.to_string())
-    })<span class="question-mark">?</span>;
-    <span class="kw">let </span>key_guid = split_iter.next().ok_or_else(|| {
-        Error::GitBashErrorMessage(<span class="string">"Bad format in ssh agent connection file."</span>.to_string())
-    })<span class="question-mark">?</span>;
+    <span class="kw">let </span>tcp_port = split_iter
+        .next()
+        .ok_or_else(|| Error::GitBashErrorMessage(<span class="string">"Bad format in ssh agent connection file."</span>.to_string()))<span class="question-mark">?</span>;
+    <span class="kw">let </span>is_cygwin = split_iter
+        .next()
+        .ok_or_else(|| Error::GitBashErrorMessage(<span class="string">"Bad format in ssh agent connection file."</span>.to_string()))<span class="question-mark">?</span>;
+    <span class="kw">let </span>key_guid = split_iter
+        .next()
+        .ok_or_else(|| Error::GitBashErrorMessage(<span class="string">"Bad format in ssh agent connection file."</span>.to_string()))<span class="question-mark">?</span>;
     <span class="comment">// The character 's' defines the newer version of MSys2 or cygwin or mingw64.
     // Only this ssh-agent implementation is supported. The older are not supported.
     </span><span class="kw">if </span>is_cygwin != <span class="string">"s" </span>{
@@ -549,23 +529,19 @@
     //      2542       1    2542      21776  cons1     197610 19:09:45 /usr/bin/bash
     // The UID is equal for all rows. We will use the second row.
     </span><span class="kw">let </span><span class="kw-2">mut </span>lines = string_output.lines();
-    <span class="kw">let </span>_line_0 = lines.next().ok_or_else(|| {
-        Error::GitBashErrorMessage(<span class="string">"Command 'ps' did not return correct list."</span>.to_string())
-    })<span class="question-mark">?</span>;
-    <span class="kw">let </span>line_1 = lines.next().ok_or_else(|| {
-        Error::GitBashErrorMessage(<span class="string">"Command 'ps' did not return correct list."</span>.to_string())
-    })<span class="question-mark">?</span>;
+    <span class="kw">let </span>_line_0 = lines
+        .next()
+        .ok_or_else(|| Error::GitBashErrorMessage(<span class="string">"Command 'ps' did not return correct list."</span>.to_string()))<span class="question-mark">?</span>;
+    <span class="kw">let </span>line_1 = lines
+        .next()
+        .ok_or_else(|| Error::GitBashErrorMessage(<span class="string">"Command 'ps' did not return correct list."</span>.to_string()))<span class="question-mark">?</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>columns = line_1.split_ascii_whitespace();
     <span class="comment">// The 5th column is the UID.
     </span><span class="kw">let </span>uid: u32 = columns
         .nth(<span class="number">5</span>)
-        .ok_or_else(|| {
-            Error::GitBashErrorMessage(<span class="string">"Command 'ps' did not return correct list."</span>.to_string())
-        })<span class="question-mark">?
+        .ok_or_else(|| Error::GitBashErrorMessage(<span class="string">"Command 'ps' did not return correct list."</span>.to_string()))<span class="question-mark">?
         </span>.parse()
-        .map_err(|<span class="kw">_</span>| {
-            Error::GitBashErrorMessage(<span class="string">"Format of 'bash.exe -c ps' is incorrect."</span>.to_string())
-        })<span class="question-mark">?</span>;
+        .map_err(|<span class="kw">_</span>| Error::GitBashErrorMessage(<span class="string">"Format of 'bash.exe -c ps' is incorrect."</span>.to_string()))<span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(uid)
 }
 
@@ -576,18 +552,14 @@
 /// Eight hexadecimal digits form one u32 byte. That is one group.
 </span><span class="attr">#[cfg(target_family = <span class="string">"windows"</span>)]
 </span><span class="kw">fn </span>parse_guid_and_change_byte_order(key_guid: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;[u8; <span class="number">16</span>]&gt; {
-    <span class="kw">let </span>group0 = u32::from_str_radix(<span class="kw-2">&amp;</span>key_guid[<span class="number">0</span>..<span class="number">8</span>], <span class="number">16</span>).map_err(|<span class="kw">_</span>| {
-        Error::GitBashErrorMessage(<span class="string">"Guid in SSH_AUTH_SOCK is incorrect."</span>.to_string())
-    })<span class="question-mark">?</span>;
-    <span class="kw">let </span>group1 = u32::from_str_radix(<span class="kw-2">&amp;</span>key_guid[<span class="number">9</span>..<span class="number">17</span>], <span class="number">16</span>).map_err(|<span class="kw">_</span>| {
-        Error::GitBashErrorMessage(<span class="string">"Guid in SSH_AUTH_SOCK is incorrect."</span>.to_string())
-    })<span class="question-mark">?</span>;
-    <span class="kw">let </span>group2 = u32::from_str_radix(<span class="kw-2">&amp;</span>key_guid[<span class="number">18</span>..<span class="number">26</span>], <span class="number">16</span>).map_err(|<span class="kw">_</span>| {
-        Error::GitBashErrorMessage(<span class="string">"Guid in SSH_AUTH_SOCK is incorrect."</span>.to_string())
-    })<span class="question-mark">?</span>;
-    <span class="kw">let </span>group3 = u32::from_str_radix(<span class="kw-2">&amp;</span>key_guid[<span class="number">27</span>..<span class="number">35</span>], <span class="number">16</span>).map_err(|<span class="kw">_</span>| {
-        Error::GitBashErrorMessage(<span class="string">"Guid in SSH_AUTH_SOCK is incorrect."</span>.to_string())
-    })<span class="question-mark">?</span>;
+    <span class="kw">let </span>group0 = u32::from_str_radix(<span class="kw-2">&amp;</span>key_guid[<span class="number">0</span>..<span class="number">8</span>], <span class="number">16</span>)
+        .map_err(|<span class="kw">_</span>| Error::GitBashErrorMessage(<span class="string">"Guid in SSH_AUTH_SOCK is incorrect."</span>.to_string()))<span class="question-mark">?</span>;
+    <span class="kw">let </span>group1 = u32::from_str_radix(<span class="kw-2">&amp;</span>key_guid[<span class="number">9</span>..<span class="number">17</span>], <span class="number">16</span>)
+        .map_err(|<span class="kw">_</span>| Error::GitBashErrorMessage(<span class="string">"Guid in SSH_AUTH_SOCK is incorrect."</span>.to_string()))<span class="question-mark">?</span>;
+    <span class="kw">let </span>group2 = u32::from_str_radix(<span class="kw-2">&amp;</span>key_guid[<span class="number">18</span>..<span class="number">26</span>], <span class="number">16</span>)
+        .map_err(|<span class="kw">_</span>| Error::GitBashErrorMessage(<span class="string">"Guid in SSH_AUTH_SOCK is incorrect."</span>.to_string()))<span class="question-mark">?</span>;
+    <span class="kw">let </span>group3 = u32::from_str_radix(<span class="kw-2">&amp;</span>key_guid[<span class="number">27</span>..<span class="number">35</span>], <span class="number">16</span>)
+        .map_err(|<span class="kw">_</span>| Error::GitBashErrorMessage(<span class="string">"Guid in SSH_AUTH_SOCK is incorrect."</span>.to_string()))<span class="question-mark">?</span>;
     <span class="comment">// The secret handshake converts the u32 into LittleEndian.
     // Nobody knows why is that needed, but it is the protocol.
     </span><span class="kw">let </span><span class="kw-2">mut </span>b1: [u8; <span class="number">16</span>] = [<span class="number">0</span>; <span class="number">16</span>];
@@ -628,9 +600,7 @@
     </span><span class="kw">fn </span>test_parse_guid_and_change_byte_order() {
         <span class="kw">let </span>guid = <span class="string">"09B97624-72E2CDC5-38596B86-E9F0B690"</span>;
         <span class="kw">let </span>ordered_guid = parse_guid_and_change_byte_order(guid).unwrap();
-        <span class="kw">let </span>compare_with: [u8; <span class="number">16</span>] = [
-            <span class="number">36</span>, <span class="number">118</span>, <span class="number">185</span>, <span class="number">9</span>, <span class="number">197</span>, <span class="number">205</span>, <span class="number">226</span>, <span class="number">114</span>, <span class="number">134</span>, <span class="number">107</span>, <span class="number">89</span>, <span class="number">56</span>, <span class="number">144</span>, <span class="number">182</span>, <span class="number">240</span>, <span class="number">233</span>,
-        ];
+        <span class="kw">let </span>compare_with: [u8; <span class="number">16</span>] = [<span class="number">36</span>, <span class="number">118</span>, <span class="number">185</span>, <span class="number">9</span>, <span class="number">197</span>, <span class="number">205</span>, <span class="number">226</span>, <span class="number">114</span>, <span class="number">134</span>, <span class="number">107</span>, <span class="number">89</span>, <span class="number">56</span>, <span class="number">144</span>, <span class="number">182</span>, <span class="number">240</span>, <span class="number">233</span>];
         <span class="macro">assert_eq!</span>(ordered_guid, compare_with);
     }
 
