@@ -12,6 +12,8 @@ The TODO section is part of the [README.md](https://github.com/bestia-dev/ssh_ag
 
 -  update automation
 
+- update automation
+
 ## Version 0.0.14 (2025-03-29)
 
 - tilde
